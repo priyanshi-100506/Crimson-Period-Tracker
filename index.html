@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crimson | Period & PCOS Tracker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Onboarding Modal -->
+  <div class="modal" id="onboarding-modal">
+    <div class="modal-content">
+      <h2>Welcome to Crimson! <i class="fas fa-moon" style="color: #dc143c;"></i></h2>
+      <form id="onboarding-form">
+        <div class="form-group">
+          <label for="user-name-input">What's your name?</label>
+          <input type="text" id="user-name-input" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="last-period">Last period date:</label>
+            <input type="date" id="last-period" required>
+          </div>
+          <div class="form-group">
+            <label for="cycle-length">Cycle length (days):</label>
+            <input type="number" id="cycle-length" value="28" min="20" max="45">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="period-length">Period duration (days):</label>
+            <input type="number" id="period-length" value="5" min="2" max="10">
+          </div>
+          <div class="form-group">
+            <label for="flow-level">Typical flow:</label>
+            <select id="flow-level">
+              <option value="light">Light</option>
+              <option value="medium" selected>Medium</option>
+              <option value="heavy">Heavy</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="pcos-diagnosed"> I have PCOS diagnosis
+          </label>
+        </div>
+        <button type="submit" class="primary-btn">Start Tracking</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+        <i class="fas fa-moon"></i>
+        <span class="logo-text">Crimson</span>
+      </div>
+      <nav>
+        <a href="#" data-page="tracker" class="active"><i class="fas fa-calendar-heart"></i> Tracker</a>
+        <a href="#" data-page="analytics"><i class="fas fa-chart-line"></i> Analytics</a>
+        <a href="#" data-page="fertility"><i class="fas fa-venus"></i> Fertility</a>
+        <a href="#" data-page="pcos-care"><i class="fas fa-seedling"></i> PCOS Care</a>
+        <a href="#" data-page="health"><i class="fas fa-heartbeat"></i> Health</a>
+        <a href="#" data-page="resources"><i class="fas fa-book-medical"></i> Resources</a>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+      <!-- Header -->
+      <header>
+        <h1 id="greeting">Hello, <span id="user-name">User</span>!</h1>
+        <div class="period-info">
+          <div class="info-item">
+            <span>Cycle phase:</span>
+            <strong id="cycle-phase">Follicular</strong>
+          </div>
+          <div class="info-item">
+            <span>Next period:</span>
+            <strong id="next-period">May 28</strong>
+            <span id="days-until">(14 days)</span>
+          </div>
+          <div class="info-item">
+            <span>Ovulation:</span>
+            <strong id="ovulation-date">May 14</strong>
+          </div>
+        </div>
+      </header>
+
+      <!-- Tracker Page -->
+      <div class="page active" id="tracker-page">
+        <div class="tracker-card">
+          <h3><i class="fas fa-heartbeat"></i> Today's Health Log</h3>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Basal Body Temp (°C)</label>
+              <input type="number" id="bbt-input" step="0.01" min="35" max="39" placeholder="36.5">
+            </div>
+            <div class="form-group">
+              <label>Cervical Mucus</label>
+              <select id="cm-input">
+                <option value="">Select</option>
+                <option value="dry">Dry</option>
+                <option value="sticky">Sticky</option>
+                <option value="creamy">Creamy</option>
+                <option value="watery">Watery</option>
+                <option value="eggwhite">Egg white</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="symptoms-grid">
+            <button class="symptom-btn" data-symptom="cramps">
+              <i class="fas fa-bolt"></i> Cramps
+            </button>
+            <button class="symptom-btn" data-symptom="headache">
+              <i class="fas fa-brain"></i> Headache
+            </button>
+            <button class="symptom-btn" data-symptom="bloating">
+              <i class="fas fa-weight"></i> Bloating
+            </button>
+            <button class="symptom-btn" data-symptom="fatigue">
+              <i class="fas fa-bed"></i> Fatigue
+            </button>
+            <button class="symptom-btn" data-symptom="acne">
+              <i class="fas fa-allergies"></i> Acne
+            </button>
+            <button class="symptom-btn" data-symptom="mood-swings">
+              <i class="fas fa-smile"></i> Mood Swings
+            </button>
+            <button class="symptom-btn" data-symptom="tender-breasts">
+              <i class="fas fa-heart"></i> Tender Breasts
+            </button>
+            <button class="symptom-btn" data-symptom="backache">
+              <i class="fas fa-bone"></i> Backache
+            </button>
+            <button class="symptom-btn" data-symptom="insomnia">
+              <i class="fas fa-moon"></i> Insomnia
+            </button>
+          </div>
+          
+          <div class="notes-section">
+            <h4><i class="fas fa-edit"></i> Notes & Observations</h4>
+            <textarea id="daily-notes" placeholder="Record any additional observations..."></textarea>
+          </div>
+          
+          <div class="form-row">
+            <button id="save-log" class="primary-btn">
+              <i class="fas fa-save"></i> Save Today's Log
+            </button>
+            <button id="log-period-btn" class="secondary-btn">
+              <i class="fas fa-tint"></i> Log Period Start
+            </button>
+          </div>
+        </div>
+        
+        <div class="calendar-container">
+          <div class="calendar-header">
+            <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+            <h3 id="current-month">May 2023</h3>
+            <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+          </div>
+          <div class="calendar-grid" id="calendar">
+            <!-- Calendar days will be generated by JavaScript -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Analytics Page -->
+      <div class="page" id="analytics-page">
+        <h2><i class="fas fa-chart-line"></i> Cycle Analytics</h2>
+        
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h4><i class="fas fa-arrows-alt-h"></i> Average Cycle Length</h4>
+            <div class="stat-value" id="avg-cycle">28 days</div>
+            <div class="stat-trend" id="cycle-trend">+1 day from last cycle</div>
+          </div>
+          
+          <div class="stat-card">
+            <h4><i class="fas fa-tint"></i> Average Period Length</h4>
+            <div class="stat-value" id="avg-period">5 days</div>
+            <div class="stat-trend">Consistent</div>
+          </div>
+          
+          <div class="stat-card">
+            <h4><i class="fas fa-thermometer-half"></i> Avg. Follicular Temp</h4>
+            <div class="stat-value" id="avg-follicular-temp">36.4°C</div>
+          </div>
+          
+          <div class="stat-card">
+            <h4><i class="fas fa-thermometer-full"></i> Avg. Luteal Temp</h4>
+            <div class="stat-value" id="avg-luteal-temp">36.8°C</div>
+          </div>
+        </div>
+        
+        <div class="tracker-card">
+          <h3><i class="fas fa-chart-area"></i> Temperature Chart</h3>
+          <div class="chart-container">
+            <canvas id="bbt-chart"></canvas>
+          </div>
+        </div>
+        
+        <div class="tracker-card">
+          <h3><i class="fas fa-exclamation-triangle"></i> Symptom Frequency</h3>
+          <div class="chart-container">
+            <canvas id="symptom-chart"></canvas>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Fertility Page -->
+      <div class="page" id="fertility-page">
+        <h2><i class="fas fa-venus"></i> Fertility Insights</h2>
+        
+        <div class="tracker-card fertility-card">
+          <div class="fertility-status">
+            <div class="fertility-icon">
+              <i class="fas fa-egg"></i>
+            </div>
+            <div class="fertility-details">
+              <h3 id="fertility-window-status">Low Fertility</h3>
+              <p id="fertility-window-desc">You're currently in your follicular phase</p>
+            </div>
+          </div>
+          
+          <div class="fertility-metrics">
+            <div class="metric">
+              <div class="metric-label">Fertile Window</div>
+              <div class="metric-value" id="fertile-window">May 10 - May 16</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Ovulation Day</div>
+              <div class="metric-value" id="ovulation-day">May 14</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Best Conception Days</div>
+              <div class="metric-value" id="best-conception-days">May 12-14</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tracker-card">
+          <h3><i class="fas fa-calendar-check"></i> Cycle Phases</h3>
+          
+          <div class="phase-cards">
+            <div class="phase-card" data-phase="menstrual">
+              <h4>Menstrual Phase</h4>
+              <p>Days 1-5</p>
+              <div class="phase-tips">
+                <p><i class="fas fa-lightbulb"></i> Focus on rest and iron-rich foods</p>
+              </div>
+            </div>
+            
+            <div class="phase-card" data-phase="follicular">
+              <h4>Follicular Phase</h4>
+              <p>Days 6-14</p>
+              <div class="phase-tips">
+                <p><i class="fas fa-lightbulb"></i> Great time for intense workouts</p>
+              </div>
+            </div>
+            
+            <div class="phase-card" data-phase="ovulation">
+              <h4>Ovulation</h4>
+              <p>Day 14</p>
+              <div class="phase-tips">
+                <p><i class="fas fa-lightbulb"></i> Highest energy and libido</p>
+              </div>
+            </div>
+            
+            <div class="phase-card" data-phase="luteal">
+              <h4>Luteal Phase</h4>
+              <p>Days 15-28</p>
+              <div class="phase-tips">
+                <p><i class="fas fa-lightbulb"></i> Focus on stress management</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- PCOS Care Page -->
+      <div class="page" id="pcos-care-page">
+        <h2><i class="fas fa-seedling"></i> PCOS Management</h2>
+        
+        <div class="tracker-card">
+          <div class="pcos-dashboard">
+            <div class="pcos-tip">
+              <h4><i class="fas fa-lightbulb"></i> Today's PCOS Tip</h4>
+              <p id="pcos-daily-tip">Try adding 1 tbsp of flaxseeds to your breakfast - they help regulate hormones and improve insulin sensitivity!</p>
+            </div>
+            
+            <div class="pcos-habit-tracker">
+              <h4><i class="fas fa-check-circle"></i> Daily Habits</h4>
+              <div class="habits-grid">
+                <div class="habit">
+                  <input type="checkbox" id="habit-water">
+                  <label for="habit-water">2L water</label>
+                </div>
+                <div class="habit">
+                  <input type="checkbox" id="habit-walk">
+                  <label for="habit-walk">30min walk</label>
+                </div>
+                <div class="habit">
+                  <input type="checkbox" id="habit-sleep">
+                  <label for="habit-sleep">7+ hours sleep</label>
+                </div>
+                <div class="habit">
+                  <input type="checkbox" id="habit-sugar">
+                  <label for="habit-sugar">Low sugar</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tracker-card">
+          <h3><i class="fas fa-apple-alt"></i> Nutrition Guide</h3>
+          
+          <div class="nutrition-tabs">
+            <div class="tab-header">
+              <button class="tab-btn active" data-tab="foods-to-eat">Foods to Eat</button>
+              <button class="tab-btn" data-tab="foods-to-avoid">Foods to Avoid</button>
+              <button class="tab-btn" data-tab="indian-recipes">Indian Recipes</button>
+            </div>
+            
+            <div class="tab-content active" id="foods-to-eat">
+              <ul class="food-list">
+                <li><i class="fas fa-check-circle"></i> Leafy greens (spinach, kale)</li>
+                <li><i class="fas fa-check-circle"></i> Lean proteins (tofu, fish)</li>
+                <li><i class="fas fa-check-circle"></i> Whole grains (brown rice, quinoa)</li>
+                <li><i class="fas fa-check-circle"></i> Healthy fats (avocado, nuts)</li>
+                <li><i class="fas fa-check-circle"></i> Anti-inflammatory spices (turmeric, cinnamon)</li>
+              </ul>
+            </div>
+            
+            <div class="tab-content" id="foods-to-avoid">
+              <ul class="food-list">
+                <li><i class="fas fa-times-circle"></i> Processed foods</li>
+                <li><i class="fas fa-times-circle"></i> Sugary drinks</li>
+                <li><i class="fas fa-times-circle"></i> Refined carbs (white bread, pasta)</li>
+                <li><i class="fas fa-times-circle"></i> Fried foods</li>
+                <li><i class="fas fa-times-circle"></i> Excessive dairy</li>
+              </ul>
+            </div>
+            
+            <div class="tab-content" id="indian-recipes">
+              <div class="recipe">
+                <h4>Methi Paratha</h4>
+                <p>Whole wheat flatbread with fenugreek leaves - helps regulate blood sugar</p>
+              </div>
+              <div class="recipe">
+                <h4>Flaxseed Ladoo</h4>
+                <p>Healthy dessert with flaxseeds, jaggery, and nuts - rich in omega-3</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Health Page -->
+      <div class="page" id="health-page">
+        <h2><i class="fas fa-heartbeat"></i> Health Metrics</h2>
+        
+        <div class="tracker-card">
+          <h3><i class="fas fa-weight"></i> Weight & BMI Tracker</h3>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Weight (kg)</label>
+              <input type="number" id="weight-input" step="0.1" min="30" max="200">
+            </div>
+            <div class="form-group">
+              <label>Height (cm)</label>
+              <input type="number" id="height-input" min="120" max="220" value="160">
+            </div>
+          </div>
+          
+          <button id="save-weight" class="primary-btn">Save Measurement</button>
+          
+          <div class="health-stats">
+            <div class="health-stat">
+              <div class="stat-label">BMI</div>
+              <div class="stat-value" id="bmi-value">22.5</div>
+              <div class="stat-category" id="bmi-category">Normal</div>
+            </div>
+            
+            <div class="health-stat">
+              <div class="stat-label">Waist-Hip Ratio</div>
+              <div class="stat-value" id="whr-value">0.75</div>
+              <div class="stat-category">Healthy</div>
+            </div>
+          </div>
+          
+          <div class="chart-container">
+            <canvas id="weight-chart"></canvas>
+          </div>
+        </div>
+        
+        <div class="tracker-card">
+          <h3><i class="fas fa-vial"></i> Blood Test Tracker</h3>
+          
+          <table class="blood-test-table">
+            <thead>
+              <tr>
+                <th>Test</th>
+                <th>Your Value</th>
+                <th>Normal Range</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Fasting Glucose</td>
+                <td><input type="number" value="85"> mg/dL</td>
+                <td>70-99 mg/dL</td>
+                <td><span class="status-normal">Normal</span></td>
+              </tr>
+              <tr>
+                <td>HbA1c</td>
+                <td><input type="number" value="5.2"> %</td>
+                <td>&lt;5.7%</td>
+                <td><span class="status-normal">Normal</span></td>
+              </tr>
+              <tr>
+                <td>Vitamin D</td>
+                <td><input type="number" value="22"> ng/mL</td>
+                <td>30-100 ng/mL</td>
+                <td><span class="status-low">Low</span></td>
+              </tr>
+              <tr>
+                <td>TSH</td>
+                <td><input type="number" value="3.2"> mIU/L</td>
+                <td>0.4-4.0 mIU/L</td>
+                <td><span class="status-normal">Normal</span></td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <button class="primary-btn" style="margin-top: 1rem;">
+            <i class="fas fa-save"></i> Save Blood Test Results
+          </button>
+        </div>
+      </div>
+      
+      <!-- Resources Page -->
+      <div class="page" id="resources-page">
+        <h2><i class="fas fa-book-medical"></i> Health Resources</h2>
+        
+        <div class="resources-grid">
+          <div class="resource-card">
+            <div class="resource-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <h3>Emergency Contacts</h3>
+            <ul>
+              <li>National Women's Helpline: <strong>181</strong></li>
+              <li>Mental Health: <strong>080-46110007</strong></li>
+            </ul>
+          </div>
+          
+          <div class="resource-card">
+            <div class="resource-icon">
+              <i class="fas fa-hospital"></i>
+            </div>
+            <h3>Find Specialists</h3>
+            <button class="primary-btn">
+              <i class="fas fa-search"></i> Gynecologists Near You
+            </button>
+            <button class="primary-btn">
+              <i class="fas fa-search"></i> Endocrinologists
+            </button>
+          </div>
+          
+          <div class="resource-card">
+            <div class="resource-icon">
+              <i class="fas fa-book"></i>
+            </div>
+            <h3>Recommended Books</h3>
+            <ul>
+              <li>Period Power by Maisie Hill</li>
+              <li>The PCOS Plan by Nadia Brito</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="tracker-card">
+          <h3><i class="fas fa-graduation-cap"></i> Educational Content</h3>
+          
+          <div class="video-grid">
+            <div class="video-card">
+              <img src="https://via.placeholder.com/300x170" alt="Video thumbnail">
+              <h4>Understanding Your Cycle</h4>
+              <p>Learn about the 4 phases of your menstrual cycle</p>
+            </div>
+            
+            <div class="video-card">
+              <img src="https://via.placeholder.com/300x170" alt="Video thumbnail">
+              <h4>PCOS Nutrition Guide</h4>
+              <p>Indian diet tips for managing PCOS</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dark Mode Toggle -->
+  <button class="dark-mode-toggle" id="dark-mode-toggle">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

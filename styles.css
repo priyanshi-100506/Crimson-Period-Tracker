@@ -1,0 +1,841 @@
+:root {
+  --crimson: #dc143c;
+  --pcos-purple: #8a2be2;
+  --fertility-green: #2e8b57;
+  --ovulation-orange: #ff8c00;
+  --light-bg: #f9f5f6;
+  --dark-bg: #1a1a2e;
+  --card-bg: #ffffff;
+  --dark-card-bg: #16213e;
+  --text-color: #333;
+  --dark-text-color: #f1f1f1;
+  --card-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  --rose-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --fertility-gradient: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--light-bg);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Container Layout */
+.container {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  background: var(--card-bg);
+  padding: 2rem 1rem;
+  box-shadow: var(--card-shadow);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding-left: 0.5rem;
+}
+
+.logo i {
+  font-size: 1.8rem;
+  background: var(--rose-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: var(--rose-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+nav a {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+nav a:hover {
+  background: rgba(220, 20, 60, 0.1);
+}
+
+nav a.active {
+  background: rgba(220, 20, 60, 0.2);
+  color: var(--crimson);
+}
+
+/* Main Content */
+.main {
+  flex: 1;
+  padding: 2rem;
+}
+
+header {
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.period-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  color: #666;
+}
+
+.info-item {
+  background: rgba(220, 20, 60, 0.05);
+  padding: 0.75rem;
+  border-radius: 8px;
+}
+
+/* Cards */
+.tracker-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--card-shadow);
+}
+
+/* Form Elements */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-family: 'Poppins', sans-serif;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+/* Buttons */
+.primary-btn {
+  background: var(--rose-gradient);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+}
+
+.secondary-btn {
+  background: none;
+  border: 2px solid var(--crimson);
+  color: var(--crimson);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.secondary-btn:hover {
+  background: rgba(220, 20, 60, 0.1);
+}
+
+/* Symptoms Grid */
+.symptoms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+.symptom-btn {
+  padding: 0.75rem;
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.symptom-btn:hover {
+  border-color: var(--crimson);
+}
+
+.symptom-btn.active {
+  background: rgba(220, 20, 60, 0.1);
+  border-color: var(--crimson);
+  color: var(--crimson);
+}
+
+/* Calendar */
+.calendar-container {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.calendar-header button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: var(--text-color);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.calendar-day:hover {
+  background: rgba(220, 20, 60, 0.1);
+}
+
+.calendar-day.period {
+  background: rgba(220, 20, 60, 0.2);
+  color: var(--crimson);
+  font-weight: 600;
+}
+
+.calendar-day.today {
+  border: 2px solid var(--crimson);
+}
+
+.calendar-day.other-month {
+  opacity: 0.4;
+}
+
+.symptom-dots {
+  position: absolute;
+  bottom: 5px;
+  display: flex;
+  gap: 2px;
+}
+
+.symptom-dots span {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--crimson);
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+  color: var(--crimson);
+}
+
+.stat-trend {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Chart Containers */
+.chart-container {
+  height: 300px;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+/* Fertility Card */
+.fertility-card {
+  background: linear-gradient(135deg, rgba(46, 139, 87, 0.1) 0%, rgba(168, 224, 99, 0.1) 100%);
+  border-left: 4px solid var(--fertility-green);
+}
+
+.fertility-status {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.fertility-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--fertility-gradient);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.fertility-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.metric {
+  background: rgba(255,255,255,0.7);
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.metric-label {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.metric-value {
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+/* Phase Cards */
+.phase-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.phase-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.phase-card[data-phase="menstrual"] {
+  border-top: 4px solid var(--crimson);
+}
+
+.phase-card[data-phase="follicular"] {
+  border-top: 4px solid #4e9efd;
+}
+
+.phase-card[data-phase="ovulation"] {
+  border-top: 4px solid var(--ovulation-orange);
+}
+
+.phase-card[data-phase="luteal"] {
+  border-top: 4px solid #8a2be2;
+}
+
+.phase-tips {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #ddd;
+  font-size: 0.9rem;
+}
+
+/* Nutrition Tabs */
+.nutrition-tabs {
+  margin-top: 1.5rem;
+}
+
+.tab-header {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1rem;
+}
+
+.tab-btn {
+  padding: 0.75rem 1.5rem;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+  border-bottom-color: var(--pcos-purple);
+  font-weight: 600;
+  color: var(--pcos-purple);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.food-list {
+  list-style: none;
+}
+
+.food-list li {
+  margin: 0.75rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.food-list i {
+  font-size: 1.1rem;
+}
+
+.food-list i.fa-check-circle {
+  color: var(--fertility-green);
+}
+
+.food-list i.fa-times-circle {
+  color: var(--crimson);
+}
+
+/* Health Stats */
+.health-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.health-stat {
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: var(--card-shadow);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+
+.stat-category {
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* Blood Test Table */
+.blood-test-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.blood-test-table th, 
+.blood-test-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.blood-test-table th {
+  font-weight: 600;
+}
+
+.blood-test-table input {
+  width: 70px;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-align: right;
+}
+
+.status-normal {
+  color: var(--fertility-green);
+  font-weight: 600;
+}
+
+.status-low {
+  color: var(--crimson);
+  font-weight: 600;
+}
+
+/* Resources Grid */
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.resource-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+}
+
+.resource-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--rose-gradient);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  margin: 0 auto 1rem;
+}
+
+.resource-card button {
+  margin: 0.5rem 0;
+  width: 100%;
+}
+
+/* Video Grid */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.video-card {
+  background: var(--card-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+
+.video-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.video-card h4 {
+  padding: 1rem 1rem 0;
+}
+
+.video-card p {
+  padding: 0 1rem 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--rose-gradient);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.dark-mode-toggle:hover {
+  transform: translateY(-3px);
+}
+
+/* Onboarding Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: var(--card-shadow);
+}
+
+/* Page Content */
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+  display: none;
+  padding: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background: var(--card-bg);
+  border-bottom: 1px solid #ddd;
+}
+
+/* ======================
+   RESPONSIVE DESIGN
+   ====================== */
+@media (max-width: 992px) {
+  .container {
+    grid-template-columns: 180px 1fr;
+  }
+  
+  .sidebar {
+    padding: 15px;
+  }
+  
+  .main {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+  
+  .sidebar {
+    display: none;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .sidebar.active {
+    display: block;
+  }
+  
+  .mobile-menu-toggle {
+    display: block;
+  }
+  
+  nav {
+    flex-direction: column;
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+  
+  nav a {
+    white-space: normal;
+    padding: 10px 15px;
+  }
+  
+  .symptoms-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .period-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 15px;
+  }
+  
+  .tracker-card {
+    padding: 15px;
+  }
+  
+  .symptoms-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  button.primary-btn, button.secondary-btn {
+    width: 100%;
+  }
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background: var(--dark-bg);
+  color: var(--dark-text-color);
+}
+
+.dark-mode .sidebar,
+.dark-mode .tracker-card,
+.dark-mode .calendar-container,
+.dark-mode .stat-card,
+.dark-mode .modal-content {
+  background: var(--dark-card-bg);
+}
+
+.dark-mode input,
+.dark-mode select,
+.dark-mode textarea,
+.dark-mode .blood-test-table input {
+  background: #16213e;
+  border-color: #444;
+  color: #f1f1f1;
+}
+
+.dark-mode .calendar-header button,
+.dark-mode .tab-btn {
+  color: var(--dark-text-color);
+}
+
+.dark-mode .period-info,
+.dark-mode .stat-trend,
+.dark-mode .video-card p {
+  color: #aaa;
+}
+
+.dark-mode .phase-tips,
+.dark-mode .blood-test-table th,
+.dark-mode .blood-test-table td {
+  border-color: #444;
+}
+
+.dark-mode nav a:hover {
+  background: rgba(220, 20, 60, 0.2);
+}
+
+.dark-mode .symptom-btn {
+  background: #16213e;
+  border-color: #444;
+}
+
+.dark-mode .symptom-btn:hover {
+  border-color: var(--crimson);
+}
+
+.dark-mode .symptom-btn.active {
+  background: rgba(220, 20, 60, 0.3);
+}
