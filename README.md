@@ -38,7 +38,7 @@ Resource Hub: Find recommended reading, specialist contacts, and emergency helpl
 Educational Content: Integrated video guides on understanding cycles and PCOS nutrition.
 
 🚀 Technologies Used
-Frontend: React / Next.js (likely, based on the Vercel deployment)
+Frontend: React / Next.js 
 
 Styling: Tailwind CSS / Styled Components
 
